@@ -1,0 +1,6 @@
+name = input("What is your name? ")
+print("Hello, " +  name  + "!")
+course = input("what course are you studying?")
+print("you are studying" + course )
+interest = input("what area of cybersecurity interests you?")
+print("you are interested in" + interest)
