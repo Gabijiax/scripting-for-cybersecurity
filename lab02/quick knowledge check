@@ -1,0 +1,7 @@
+1. pwd
+2. the parent directory
+3. > puts out on the top of a file while >> adds to the end of the file
+4. puts the outcome of one command into another command
+5. double quotes will show the variables value while single quotes will show '$user' exactly
+6. the files in /usr/bin will be listed and will find the ones that have python and see how many of python there is
+7.it gets you to the home directory

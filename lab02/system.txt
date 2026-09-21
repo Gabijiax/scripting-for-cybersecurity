@@ -1,0 +1,8 @@
+gabijiax
+hostname
+codespaces-02a1a8
+ 15/09/2026
+/workspaces/scripting-for-cybersecurity/lab02
+date
+Tue Sep 15 10:52:01 UTC 2026
+codespaces-02a1a8

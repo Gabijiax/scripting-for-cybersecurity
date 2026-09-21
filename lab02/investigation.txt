@@ -1,0 +1,7 @@
+Current user: codespace
+hostname: codespaces-02a1a8
+current directory: /bin/bash
+user home directory: /home/codespace
+location of python3: /usr/bin/bash
+number of environment variables: 
+ number of filenames in /usr/bin containing ssh: 
