@@ -9,6 +9,6 @@ fingerprinting.
 ## Labs
 - Lab 01 - Development Environment
 - Lab 02 - Linux Command Line
-- Lab 03 -
-- Lab 04 -
+- Lab 03 - text processing and log analysis
+- Lab 04 - finding files and working with data
 - Lab 05 -
