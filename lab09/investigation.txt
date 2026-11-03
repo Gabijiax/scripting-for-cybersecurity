@@ -1,0 +1,11 @@
+Lab 9 Investigation
+
+1. The log with the most distinct indicators is a tie between auth.log and firewall.log, which each contain 3 of the indicators (access.log has 2). The log with the most indicator lines is access.log, with 40 matching lines (21 for 203.0.113.10 and 19 for 198.51.100.24), then auth.log with 34, and firewall.log with only 3. The two answers can differ because "distinct" only counts how many different indicators show up, while "lines" counts how many times they repeat. A web server log records every single request, so the same two addresses show up over and over, whereas the firewall log is short and only records each address once.
+
+2. Two files were flagged: case/scripts/report.py and case/scripts/scan.py. Both have a .py extension, but file detected them as plain ASCII text instead of Python script. This is probably because they have no shebang line, so I don't think it means they were tampered with. suspicious.dat was not flagged by my survey because I only added rules for .png, .zip, .txt, .md, .sh, .py and .bin, but it is the most important file in the collection (see question 5).
+
+3. The survey did not include case/nested/archive/old.log. My globs (case/evidence/*, case/scripts/* and case/logs/*) only go one folder level deep, and * does not go down into subfolders, so a log stored in case/nested/archive/ was missed.
+
+4. No, file_survey.sh would not need to change. case/logs/* is expanded again every time the script runs, so a new vpn.log in that folder would be picked up automatically, and because it ends in .log it would also get the indicator check.
+
+5. The addresses 203.0.113.10 and 198.51.100.24 appear in all three logs (web, SSH and firewall), which makes them the strongest evidence of a determined attacker, and 203.0.113.200 appears in the SSH and firewall logs. Two more addresses that failed SSH logins, 198.51.100.77 (8 failures) and 203.0.113.15 (3 failures), are not in the IOC list, and I would want more evidence, such as successful logins or firewall hits, before adding them. On the workstation, case/evidence/suspicious.dat is really an ELF executable (file reports "unknown class 154") hiding behind a .dat extension. That suggests a corrupted or deliberately disguised program, so it should never be run, only analysed safely.
