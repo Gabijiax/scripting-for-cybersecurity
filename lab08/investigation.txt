@@ -1,0 +1,219 @@
+Lab 8: File Tests and Applied Decision-Making
+
+Investigation Report
+
+Exercise 1: File Tests
+
+The inspect_path.sh script was used to check whether paths exist and whether they are files or directories.
+
+The permissions_report.sh script checked file permissions, including whether files were readable, writable, executable and non-empty.
+
+The script_check.sh script checked for interpreter lines and executable permissions.
+
+A read-only file can still be deleted if the containing directory allows deletion. This is because deleting a file depends on directory permissions, not the file's own write permission.
+
+A directory can have executable permission because this allows users to enter or search the directory.
+
+Exercise 2: Guard Clauses and Decisions
+
+The guard_clause.sh script checked whether a file was a regular file, readable and non-empty.
+
+Guard clauses allow a script to stop early when a required condition is not met. This prevents unnecessary commands from running.
+
+The either_test.sh script used -f and -d with || to check whether a path was either a regular file or a directory.
+
+The path /dev/null is neither a regular file nor a directory.
+
+Exercise 3: IOC Cross-Reference
+
+The following IP addresses were checked against auth.log, access.log and firewall.log.
+
+IP address
+
+auth.log
+
+access.log
+
+firewall.log
+
+203.0.113.10
+
+15
+
+21
+
+1
+
+198.51.100.24
+
+14
+
+19
+
+1
+
+203.0.113.200
+
+5
+
+Not found
+
+1
+
+203.0.113.10 and 198.51.100.24 appeared in all three logs.
+
+203.0.113.200 appeared in auth.log and firewall.log but did not appear in access.log.
+
+This demonstrates why checking multiple logs is important when investigating suspicious IP addresses.
+
+Exercise 4: Username Investigation
+
+The following usernames were checked against auth.log.
+
+Username
+
+Failed logins
+
+Accepted logins
+
+Result
+
+root
+
+10
+
+0
+
+Investigate
+
+admin
+
+17
+
+0
+
+Investigate
+
+alice
+
+0
+
+6
+
+Successful logins only
+
+charlie
+
+0
+
+1
+
+Successful logins only
+
+frank
+
+0
+
+0
+
+No activity found
+
+The admin account had the highest number of failed login attempts, with 17. The root account had 10 failed attempts.
+
+Alice had 6 successful logins, while Charlie had 1. Frank had no recorded activity.
+
+The script uses an early exit when no matching username activity is found. This avoids running unnecessary checks.
+
+The trailing space after the username in the grep search helps prevent matching usernames that merely begin with the same characters.
+
+Successful Login Sources
+
+The successful login sources were checked for four usernames.
+
+Username
+
+Different IP addresses
+
+alice
+
+4
+
+bob
+
+3
+
+eve
+
+3
+
+charlie
+
+1
+
+Alice logged in from the highest number of different IP addresses, with 4.
+
+Bob and Eve each logged in from 3 different addresses, while Charlie logged in from 1 address.
+
+Password Evidence Cross-Reference
+
+The passwords.txt evidence file contained:
+
+alice: password123
+
+bob: qwerty2026
+
+Both passwords are weak and could be vulnerable to password-guessing attacks.
+
+Alice had 6 successful logins from 4 different IP addresses. Bob had successful logins from 3 different IP addresses.
+
+This evidence highlights the importance of strong passwords, monitoring login sources and investigating unusual account activity. The evidence alone does not prove either account was compromised.
+
+Exercise 5: Grep Debugging
+
+The command grep 203.0.113.10 case/logs/auth.log returned 15 matching lines.
+
+The command grep -w 203.0.113.10 case/logs/auth.log also returned 15 matching lines.
+
+The -w option matches the IP as a whole word and helps avoid matching it as part of a longer string.
+
+Both commands returned the same results because there were no longer addresses containing this IP as a substring.
+
+The -F option treats dots and other characters literally instead of interpreting them as regular expression symbols. Using grep -wF provides a more reliable exact IP search.
+
+Exercise 6: IP Investigation
+
+IP Address 198.51.100.77
+
+The IP address 198.51.100.77 made 8 failed login attempts.
+
+It was not found in the IOC list or the firewall log.
+
+This demonstrates that relying only on IOC lists is not enough because unknown IP addresses can still perform suspicious activity. Security analysts must also monitor logs for unusual behaviour.
+
+IP Address 203.0.113.200
+
+The IP address 203.0.113.200 was found in the IOC list and firewall log.
+
+The firewall blocked it from connecting to 10.0.0.30 on port 3389.
+
+Port 3389 is normally used by Remote Desktop Protocol (RDP).
+
+The authentication log also showed 5 failed login attempts from this IP address.
+
+IP Address 203.0.113.77
+
+The IP address 203.0.113.77 appeared 12 times in the web access log.
+
+It requested several paths, including /admin, /wp-login.php, /robots.txt and /index.html.
+
+The user agents included curl, sqlmap, python-requests and Mozilla. The use of sqlmap suggests possible SQL injection testing.
+
+This IP appeared in the web access log but not the authentication log. This shows that suspicious activity can target web services without appearing in SSH authentication records.
+
+Conclusion
+
+The investigation showed the importance of checking multiple security logs and using accurate file and text tests.
+
+An IP address may not appear in an IOC list but can still show suspicious activity. Checking authentication, web access and firewall logs together gives a better picture of potential attacks.
+
+The investigation also showed the importance of monitoring failed login attempts, checking successful login sources and identifying weak passwords.
