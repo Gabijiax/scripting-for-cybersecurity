@@ -1,0 +1,59 @@
+LAB 7 - ACCOUNT SECURITY INVESTIGATION
+
+1. PURPOSE
+
+The purpose of this investigation was to identify accounts targeted by failed SSH login attempts and check whether those accounts still exist.
+
+2. METHOD
+
+The authentication log was examined for failed password attempts. The usernames were extracted and compared against the users.csv account list using the account_audit.sh script.
+
+3. FINDINGS
+
+Six usernames were identified as targets of failed SSH login attempts:
+
+Username
+
+Account status
+
+admin
+
+Not found
+
+backup
+
+Not found
+
+guest
+
+Not found
+
+oracle
+
+Not found
+
+root
+
+Not found
+
+test
+
+Not found
+
+The account audit reported that none of these six usernames exist in the supplied users.csv account list.
+
+4. CONCLUSION
+
+The investigation identified six usernames targeted by failed SSH login attempts. None were found in the supplied account list. This suggests that the attackers attempted to access usernames that are not currently listed as accounts in the supplied dataset.
+
+5. RECOMMENDATIONS
+
+Review failed SSH login attempts regularly.
+
+Restrict SSH access to authorised users.
+
+Use strong passwords and SSH security controls.
+
+Monitor repeated attempts against common usernames.
+
+Investigate suspicious source IP addresses.
