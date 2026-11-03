@@ -1,0 +1,13 @@
+SSH ATTACKER REPORT
+===================
+Log file: case/logs/access.log
+
+Total failed login attempts: 0
+
+Top attacker IP: None found
+
+Three busiest attacker IPs:
+None found
+
+Three most targeted usernames:
+None found

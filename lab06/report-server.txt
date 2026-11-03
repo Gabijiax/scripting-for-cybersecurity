@@ -1,0 +1,17 @@
+SSH ATTACKER REPORT
+===================
+Log file: ../lab03/auth.log
+
+Total failed login attempts: 124
+
+Top attacker IP: 203.0.113.10
+
+Three busiest attacker IPs:
+     51 203.0.113.10
+     37 198.51.100.24
+     15 198.51.100.77
+
+Three most targeted usernames:
+     39 admin
+     35 root
+     18 guest

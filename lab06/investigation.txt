@@ -1,0 +1,95 @@
+LAB 6 - INVESTIGATION
+
+1. TOP SSH ATTACKERS
+
+Collected log:
+
+Top attacker: 203.0.113.10
+
+Top three attackers:
+
+203.0.113.10 - 15 attempts
+
+198.51.100.24 - 14 attempts
+
+198.51.100.77 - 8 attempts
+
+Full server log:
+
+Top attacker: 203.0.113.10
+
+Top three attackers:
+
+203.0.113.10 - 51 attempts
+
+198.51.100.24 - 37 attempts
+
+198.51.100.77 - 15 attempts
+
+Is the ranking the same?
+
+Yes, the ranking is the same in both logs. The same three IP addresses appear in the same order.
+
+Would the collected log alone have given the correct answer?
+
+It would have identified the correct top three attackers, but it would have underestimated the total number of failed login attempts because it only contained part of the server log.
+
+2. TARGETED USERNAMES
+
+Complete list of targeted usernames:
+
+admin - 39 attempts
+
+root - 35 attempts
+
+guest - 18 attempts
+
+test - 13 attempts
+
+backup - 13 attempts
+
+oracle - 5 attempts
+
+user - 1 attempt
+
+Does the word "invalid" appear as a username?
+
+No. Invalid is a description in the SSH log, not the actual username.
+
+Why did the original pipeline pick up the wrong word?
+
+The original pipeline selected the word immediately after "for". In entries containing "invalid user", it incorrectly identified "invalid" instead of the actual username. The improved pipeline checks for this and extracts the correct username.
+
+3. WEB ACCESS LOG
+
+What did attacker_report.sh print for access.log?
+
+Total failed login attempts: 0
+
+Top attacker IP: None found
+
+Three busiest attacker IPs: None found
+
+Three most targeted usernames: None found
+
+Is the output wrong or just not meaningful?
+
+The output is not meaningful because attacker_report.sh was designed to analyse SSH authentication logs, not web access logs.
+
+What would you change?
+
+I would modify the script to analyse web access logs by extracting IP addresses, HTTP requests and response codes instead of searching for failed SSH passwords and usernames.
+
+4. FIREWALL INVESTIGATION
+
+Why do two of the top SSH attackers appear in auth.log despite being blocked?
+
+Explanation 1:
+
+The attackers may have made some attempts before the firewall blocking rules were applied. These attempts could have reached the SSH service and been recorded in auth.log.
+
+Explanation 2:
+
+The firewall may have blocked some connections while other connections from the same IP addresses reached the SSH service through different traffic paths or at different times. The firewall log records blocked traffic, while auth.log records authentication attempts received by the SSH service.
+
+The firewall log shows that 203.0.113.10 and 198.51.100.24 were blocked when attempting to connect to port 22.
